@@ -2,6 +2,7 @@ package com.JRAMarques.hero;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -33,14 +34,48 @@ public class Game {
         screen.refresh();
     }
 
-    private void processKey(KeyStroke key) {
-        System.out.println(key);
+    private void processKey(KeyStroke key) throws IOException
+    {
+        //System.out.println(key);
+        switch (key.getKeyType()) {
+            case ArrowUp:
+                y--;
+                break;
+            case ArrowDown:
+                y++;
+                break;
+            case ArrowLeft:
+                x--;
+                break;
+            case ArrowRight:
+                x++;
+                break;
+            default:
+                break;
+        }
+        if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
+            screen.close();
+        } if (key.getKeyType() == KeyType.EOF){
+            screen.close();
+            System.exit(0);
+        }
     }
 
+        public void run() throws IOException{
+            while (true) {
+                draw();
+                KeyStroke key = screen.readInput();
+                processKey(key);
+            }
+    }
 
-    public void run() throws IOException{
-        draw();
-        KeyStroke key = screen.readInput();
-        processKey(key);
+    public static void main(String[] args){
+        try{
+            Game game = new Game();
+            game.run();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
