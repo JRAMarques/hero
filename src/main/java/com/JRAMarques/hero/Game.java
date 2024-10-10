@@ -9,6 +9,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.screen.TerminalScreen;
 
 import java.io.IOException;
+import java.io.PipedOutputStream;
 
 public class Game {
     private final Screen screen;
@@ -34,21 +35,25 @@ public class Game {
         screen.refresh();
     }
 
+    private void moveHero(Position position){
+        hero.setPosition(position);
+    }
+
     private void processKey(KeyStroke key) throws IOException
     {
-        //System.out.println(key);
+//        System.out.println(key);
         switch (key.getKeyType()) {
             case ArrowUp:
-                hero.moveUp();
+                moveHero(hero.moveUp());
                 break;
             case ArrowDown:
-                hero.moveDown();
+                moveHero(hero.moveDown());
                 break;
             case ArrowLeft:
-                hero.moveLeft();
+                moveHero(hero.moveLeft());
                 break;
             case ArrowRight:
-                hero.moveRight();
+                moveHero(hero.moveRight());
                 break;
             default:
                 break;
