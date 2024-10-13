@@ -1,5 +1,5 @@
 package com.JRAMarques.hero;
 
-public class TextGraphics {
+public class Element {
 
 }
