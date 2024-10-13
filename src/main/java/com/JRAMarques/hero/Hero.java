@@ -11,7 +11,7 @@ public class Hero {
     }
 
     public Hero(int x,int y){
-      position=new Position(x,y);
+      this.position=new Position(x,y);
     }
 
     public void setPosition(Position position) {

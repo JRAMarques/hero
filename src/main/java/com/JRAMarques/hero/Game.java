@@ -13,7 +13,8 @@ import java.io.PipedOutputStream;
 
 public class Game {
     private final Screen screen;
-    private final Hero hero;
+//    private final Hero hero;
+    private final Arena arena;
 
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -21,43 +22,43 @@ public class Game {
         Terminal terminal = terminalFactory.createTerminal();
 
         screen = new TerminalScreen(terminal);
-
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
-        hero = new Hero(10, 10);
+
+        arena = new Arena(40, 20);
+//        hero = new Hero(10, 10);
     }
 
 
     private void draw() throws IOException{
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
+        arena.draw(screen);
+//        screen.clear();
+//        hero.draw(screen);
+//        screen.refresh();
     }
 
-    private void moveHero(Position position){
-        hero.setPosition(position);
-    }
 
     private void processKey(KeyStroke key) throws IOException
     {
 //        System.out.println(key);
-        switch (key.getKeyType()) {
-            case ArrowUp:
-                moveHero(hero.moveUp());
-                break;
-            case ArrowDown:
-                moveHero(hero.moveDown());
-                break;
-            case ArrowLeft:
-                moveHero(hero.moveLeft());
-                break;
-            case ArrowRight:
-                moveHero(hero.moveRight());
-                break;
-            default:
-                break;
-        }
+//        switch (key.getKeyType()) {
+//            case ArrowUp:
+//                moveHero(hero.moveUp());
+//                break;
+//            case ArrowDown:
+//                moveHero(hero.moveDown());
+//                break;
+//            case ArrowLeft:
+//                moveHero(hero.moveLeft());
+//                break;
+//            case ArrowRight:
+//                moveHero(hero.moveRight());
+//                break;
+//            default:
+//                break;
+//        }
+        arena.processKey(key);
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
             screen.close();
         } if (key.getKeyType() == KeyType.EOF){
